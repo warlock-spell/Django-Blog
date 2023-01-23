@@ -1,9 +1,59 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %} My Blog {% endblock %}
+{% block title %} Daksh's Blog {% endblock %}
+
+{%  block css_files %}
+    <link rel="stylesheet" href="{% static "blog/index.css" %}" />
+{% endblock %}
 
 {% block content %}
+    <header id="main-navigation">
+        <h1><a href="">Daksh's Blog</a></h1>
+        <nav>
+            <a href="">All Posts</a>
+        </nav>
+    </header>
 
-    <h1>This is Daksh's blog.</h1>
+    <section id="welcome">
+        <header>
+            <img src="{% static "blog/images/img1.png" %}" alt="Author's Image">
+            <h2>Daksh's Blog</h2>
+        </header>
+        <p>Hi, I am Daksh and I live at the intersection of AI, Mathematics and Software Engineering</p>
+    </section>
+
+    <section id="latest-posts">
+        <h2>Latest Posts</h2>
+        <ul>
+            <li>
+                <article class="post">
+                    <a href="">
+                        <img src="" alt="Post Img"/>
+                        <div class="post__content">
+                            <h3>Post Title</h3>
+                            <p>Preview Text- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+                                convallis elementum hendrerit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Vestibulum malesuada risus vel justo gravida, id ultrices enim varius. Aenean non massa
+                                quis leo ullamcorper porta. Morbi congue rutrum orci vitae aliquam. Nunc quis neque
+                                tempus, suscipit velit sed, iaculis magna.</p>
+                        </div>
+                    </a>
+                </article>
+            </li>
+        </ul>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis elementum hendrerit. Lorem
+            ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada risus vel justo gravida, id ultrices
+            enim varius. Aenean non massa quis leo ullamcorper porta. Morbi congue rutrum orci vitae aliquam. Nunc quis
+            neque tempus, suscipit velit sed, iaculis magna. Curabitur erat sem, lobortis ac blandit eget, molestie
+            vitae tortor. Aenean sagittis diam posuere accumsan elementum.</p>
+        <p>Proin et placerat tortor. Quisque tristique, nisl ac euismod vulputate, ligula est tincidunt lacus, nec
+            dictum purus quam vel nibh. Aliquam nec venenatis enim, et facilisis sem. Nam ac massa purus. Vestibulum
+            cursus nibh enim, quis placerat eros mattis vitae.</p>
+    </section>
 
 {% endblock %}

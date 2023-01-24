@@ -8,7 +8,7 @@ def landing_page(request):
 
 
 def posts(request):
-    pass
+    return render(request, "blog/all-posts.html")
 
 
 def load_post(request, slug):

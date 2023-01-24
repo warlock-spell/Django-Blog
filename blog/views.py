@@ -101,8 +101,13 @@ def landing_page(request):
 
 
 def posts(request):
-    return render(request, "blog/all-posts.html")
+    return render(request, "blog/all-posts.html", {
+        "all_posts": all_posts,
+    })
 
 
 def load_post(request, slug):
-    return render(request, "blog/load-post.html")
+    selected_post = next(post for post in all_posts if post['slug'] == slug)
+    return render(request, "blog/load-post.html", {
+        "post": selected_post,
+    })

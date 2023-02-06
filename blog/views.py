@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Post, Author, Tag
 
 
@@ -21,7 +21,7 @@ def posts(request):
 
 
 def load_post(request, slug):
-    selected_post = Post.objects.get(slug=slug)
+    selected_post = get_object_or_404(Post, slug=slug)
     return render(request, "blog/load-post.html", {
         "post": selected_post,
     })

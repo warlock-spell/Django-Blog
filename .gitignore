@@ -103,3 +103,4 @@ pip-selfcheck.json
 .idea/
 venv/
 data/
+credentials.txt

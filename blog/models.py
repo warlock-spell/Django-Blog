@@ -20,6 +20,7 @@ class Post(models.Model):
     date = models.DateField()
     content = models.TextField(validators=[MinLengthValidator(10)])
     slug = models.SlugField(unique=True, db_index=True)
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, related_name="posts")
 
     def __str__(self):
         return self.title

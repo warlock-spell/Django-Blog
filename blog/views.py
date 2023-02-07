@@ -37,7 +37,10 @@ class PostDetailView(View):
                       {
                           "post": post,
                           "post_tags": post.tags.all(),
-                          "comment_form": CommentForm()})
+                          "comment_form": CommentForm(),
+                          # remove the comments key, if you only want submissions
+                          "comments": post.comments.all().order_by("-id"),
+                      })
 
     def post(self, request, slug):
         comment_form = CommentForm(request.POST)
@@ -58,6 +61,8 @@ class PostDetailView(View):
             # comment_form from above is pre-filled with user data
             "comment_form": comment_form,
             "post": post,
-            "post_tags": post.tags.all()
+            "post_tags": post.tags.all(),
+            # remove the comments key, if you only want submissions
+            "comments": post.comments.all().order_by("-id"),
         }
         return render(request, self.template_name, context=context)

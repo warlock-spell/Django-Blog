@@ -29,6 +29,20 @@
     <main>
         {{ post.content|linebreaks }}
     </main>
+
+    <section id="comments">
+    <h1>Comments</h1>
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <h2>{{ comment.user_name }}</h2>
+                    <p>{{ comment.text|linebreaks }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+
     {#To inform user about error in form submission#}
     {#This if block can also be placed just below the header, at the very top#}
     {% if comment_form.errors %}

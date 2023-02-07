@@ -24,4 +24,5 @@ def load_post(request, slug):
     selected_post = get_object_or_404(Post, slug=slug)
     return render(request, "blog/load-post.html", {
         "post": selected_post,
+        "post_tags": selected_post.tags.all(),
     })

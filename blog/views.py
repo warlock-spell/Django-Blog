@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Author, Tag
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
+from .forms import CommentForm
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 # Create your views here.
@@ -23,12 +27,37 @@ class AllPostsView(ListView):
     ordering = ["-date"]
 
 
-class PostDetailView(DetailView):
+class PostDetailView(View):
     model = Post
     template_name = "blog/load-post.html"
-    context_object_name = "post"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["post_tags"] = self.object.tags.all()
-        return context
+    def get(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
+        return render(request, self.template_name,
+                      {
+                          "post": post,
+                          "post_tags": post.tags.all(),
+                          "comment_form": CommentForm()})
+
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+        if comment_form.is_valid():
+            # commit=False means that we don't want to save the model, yet
+            # it will create a model instance but not hit it to the database
+            comment = comment_form.save(commit=False)
+            # since the post field is not in the form, we need to set it manually
+            # linking comment to the post
+            comment.post = post
+            # hit the edited object to the database
+            comment.save()
+            return HttpResponseRedirect(reverse("load-post", args=[slug]))
+
+        # if form is invalid, re-render the page with the form data
+        context = {
+            # comment_form from above is pre-filled with user data
+            "comment_form": comment_form,
+            "post": post,
+            "post_tags": post.tags.all()
+        }
+        return render(request, self.template_name, context=context)

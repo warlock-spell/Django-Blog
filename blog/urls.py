@@ -14,5 +14,6 @@ urlpatterns = [
     # slug is a string that can contain letters, numbers, underscores, and hyphens
     # e.g. my-first-post
     # slug-transformer assures that given string is a valid slug
-    path("posts/<slug:slug>", views.PostDetailView.as_view(), name="load-post")
+    path("posts/<slug:slug>", views.PostDetailView.as_view(), name="load-post"),
+    path("read-later", views.ReadLaterView.as_view(), name="read-later"),
 ]
